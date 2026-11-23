@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: blink
+    runtime: node
+    branch: deploy-web-render
+    buildCommand: npm install && npm run build:web
+    startCommand: npm run serve
+    envVars:
+      - key: EXPO_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: EXPO_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
