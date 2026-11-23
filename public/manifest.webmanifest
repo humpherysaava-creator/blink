@@ -1,0 +1,13 @@
+{
+  "name": "Blink",
+  "short_name": "Blink",
+  "description": "Share little moments with your close friends.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fbfaff",
+  "theme_color": "#6758e8",
+  "icons": [
+    { "src": "/icons/blink.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

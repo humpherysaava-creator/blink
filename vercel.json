@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "echo 'No install dependencies required for the static PWA'",
+  "buildCommand": "echo 'Serving the static Blink PWA'",
+  "outputDirectory": "public"
+}

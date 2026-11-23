@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#6758e8" />
+    <meta name="description" content="Blink — share little moments with your close friends." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/blink.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/blink.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Blink — close friends, closer</title>
+  </head>
+  <body>
+    <div class="page-glow" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="wordmark" href="/" aria-label="Blink home">blink<span>.</span></a>
+      <div class="top-actions">
+        <button id="install-button" class="button button-soft install-button" type="button" hidden>Install app</button>
+        <button id="header-account" class="account-chip" type="button" hidden></button>
+      </div>
+    </header>
+
+    <main id="app" class="main" aria-live="polite">
+      <section id="loading-view" class="loading-card"><span class="spinner"></span><p>Opening Blink…</p></section>
+
+      <section id="login-view" class="auth-layout" hidden>
+        <div class="intro-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PEOPLE, YOUR MOMENTS</div>
+          <h1>Small moments.<br /><span>Closer friends.</span></h1>
+          <p class="intro-text">A little corner of the internet for the people who make your day.</p>
+          <div class="friend-pills" aria-label="Made for close friends"><span>✦ Private circle</span><span>♡ Real moments</span></div>
+        </div>
+        <form id="login-form" class="auth-card">
+          <div class="card-mark">b<span>.</span></div>
+          <h2>Welcome back</h2>
+          <p class="muted">Sign in to your close-friends circle.</p>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required />
+          <button id="login-submit" class="button button-primary full-width" type="submit">Sign in <span aria-hidden="true">→</span></button>
+          <p id="auth-message" class="form-message" role="status"></p>
+          <p class="auth-footnote">Blink accounts are managed securely with Supabase.</p>
+        </form>
+      </section>
+
+      <section id="feed-view" class="feed-layout" hidden>
+        <div class="feed-column">
+          <div class="feed-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PRIVATE LITTLE CORNER</div><h1>Your circle</h1></div><button id="install-inline" class="button button-soft install-button" type="button" hidden>＋ Install Blink</button></div>
+          <section class="stories-panel" aria-labelledby="stories-title"><div class="section-heading"><h2 id="stories-title">Stories</h2><span class="tiny-label">JUST FOR YOU</span></div><div class="stories-row" id="stories"></div></section>
+          <section class="feed-section" aria-labelledby="posts-title"><div class="section-heading"><h2 id="posts-title">Your circle</h2><span class="tiny-label">LATEST MOMENTS</span></div><div id="posts"></div></section>
+          <div id="install-help" class="install-help" hidden></div>
+        </div>
+        <aside class="side-card"><div class="side-icon">✦</div><h2>Keep it close.</h2><p>Blink is made for sharing the everyday moments with your favorite people.</p><div class="side-divider"></div><p class="side-small">Your account is signed in as</p><p id="signed-in-email" class="side-email"></p><button id="side-signout" class="text-button" type="button">Sign out <span>↗</span></button></aside>
+      </section>
+
+      <section id="admin-view" class="admin-layout" hidden>
+        <div class="admin-title-row"><button id="admin-back" class="back-button" type="button">← Back to feed</button><span class="admin-badge">✦ ADMIN</span></div>
+        <div class="admin-welcome"><div><div class="eyebrow">BLINK CONTROL ROOM</div><h1>Community overview</h1><p class="muted">A quick look at your Blink community.</p></div><button id="admin-refresh" class="button button-soft" type="button">↻ Refresh</button></div>
+        <div class="stats-grid"><article class="stat-card"><span class="stat-icon purple">♙</span><span class="stat-label">REGISTERED USERS</span><strong id="user-count">—</strong><span class="stat-caption">Profiles in your community</span></article><article class="stat-card"><span class="stat-icon coral">♡</span><span class="stat-label">COMMUNITY POSTS</span><strong>—</strong><span class="stat-caption">Post management isn’t connected yet</span></article><article class="stat-card"><span class="stat-icon mint">⚑</span><span class="stat-label">OPEN REPORTS</span><strong>—</strong><span class="stat-caption">Report management isn’t connected yet</span></article></div>
+        <section class="admin-panel"><div class="panel-heading"><div><h2>Manage users</h2><p class="muted">Accounts and roles from the Supabase profiles table.</p></div><span class="panel-count" id="users-label">Loading…</span></div><div id="users-status" class="table-message">Loading users…</div><div class="table-scroll"><table id="users-table" hidden><thead><tr><th>EMAIL</th><th>ROLE</th><th>JOINED</th></tr></thead><tbody id="users-body"></tbody></table></div></section>
+        <section class="admin-panel reports-panel"><div class="panel-heading"><div><h2>Review reports</h2><p class="muted">Report review will be available when a reports table is configured.</p></div><span class="coming-soon">NOT CONFIGURED</span></div></section>
+      </section>
+
+      <section id="config-view" class="config-card" hidden><div class="card-mark">b<span>.</span></div><h1>One quick setup step</h1><p>Blink needs its public Supabase project URL and publishable key to sign in.</p><ol><li>In Vercel, open <b>Project → Settings → Environment Variables</b>.</li><li>Add <code>EXPO_PUBLIC_SUPABASE_URL</code> and <code>EXPO_PUBLIC_SUPABASE_ANON_KEY</code>.</li><li>Redeploy the project.</li></ol><p class="security-note">Use only the public publishable/anon key here. Never put a service-role key or account password in website code.</p></section>
+    </main>
+
+    <footer class="footer"><span>blink<span class="footer-dot">.</span> Made for your people.</span><span>Moments are better together.</span></footer>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

@@ -1,18 +1,20 @@
-# Blink
+# Blink PWA deployment
 
-Expo social app with secure Supabase authentication and an admin dashboard.
+Blink is a plain HTML, CSS, and JavaScript Progressive Web App (PWA). Import this repository into Vercel and deploy the `deploy-web-render` branch. `vercel.json` serves the static app in `public/`; `/api/config` provides only the Supabase project URL and public anon/publishable key from Vercel environment variables.
 
-## Setup
+## Vercel setup
 
-1. Create a Supabase project.
-2. In Authentication > Providers, enable Email.
-3. Create the admin account for `humpherysaava7@gmail.com` and set its password in Supabase.
-4. Run the SQL in `supabase/admin.sql` from the Supabase SQL editor.
-5. Copy `.env.example` to `.env`, then add your project URL and anonymous key.
+In **Project → Settings → Environment Variables**, add these for Production (and Preview if desired):
 
-```bash
-npm install
-npm start
-```
+- `EXPO_PUBLIC_SUPABASE_URL` — your Supabase project URL
+- `EXPO_PUBLIC_SUPABASE_ANON_KEY` — your Supabase public anon/publishable key
 
-Never commit the password, service-role key, or `.env` file.
+Redeploy after adding/changing variables. Never add a Supabase `service_role` key or a user password to Vercel client settings or app files.
+
+## PWA install
+
+The app provides an install button when the browser supports the install prompt. Browsers require the visitor to approve installation; websites cannot silently download or install themselves. On iPhone/iPad, open the site in Safari, tap **Share**, then **Add to Home Screen**.
+
+## Supabase admin setup
+
+Create the admin account, then run `supabase/admin.sql` in the Supabase SQL Editor. The app recognizes the configured admin email and protected `app_metadata.role` and loads the user list from `public.profiles`. Report review is shown as not configured because this repository does not yet include a reports table or report workflow.
